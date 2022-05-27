@@ -18,7 +18,7 @@ public class Main {
 		
 		try {
 			session.beginTransaction();
-			List<City> cities = session.createQuery(" from City where id=13 ").getResultList();
+			List<City> cities = session.createQuery(" from City where CountryCode like 'TU%' ").getResultList();
 			for(City city : cities) {
 				System.out.println(" Name : "+ city.getName());
 				System.out.println("Country Code :"+city.getCountryCode());
