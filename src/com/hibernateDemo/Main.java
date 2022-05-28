@@ -28,12 +28,22 @@ public class Main {
 			
 			@SuppressWarnings("unchecked")
 			List<String> countryCodes = session.createQuery(" Select c.countryCode  from City c  group by countryCode " ).getResultList();
-			session.getTransaction().commit();
+		
 			
 			for(String countryCode: countryCodes ) {
 				System.out.println("CountyCode  :"+countryCode);
 				
 			}
+			
+			City city = new City();
+			city.setName("Musul");
+			city.setCountryCode("TUR");
+			city.setDistrict("Anadolu");
+			city.setPopulation(100000);
+			session.save(city);
+			
+			session.getTransaction().commit();
+			System.out.println("Record Added.");
 			} finally {
 			factory.close();
 		}
