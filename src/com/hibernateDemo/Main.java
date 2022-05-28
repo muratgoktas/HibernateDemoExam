@@ -18,14 +18,22 @@ public class Main {
 		
 		try {
 			session.beginTransaction();
-			List<City> cities = session.createQuery(" from City where CountryCode like 'TU%' ").getResultList();
+			// Hibernate Query language
+			@SuppressWarnings("unchecked")
+			List<City> cities = session.createQuery(" from City where CountryCode like 'TU%' order by Name desc ").getResultList();
 			for(City city : cities) {
 				System.out.println(" Name : "+ city.getName());
 				System.out.println("Country Code :"+city.getCountryCode());
 			}
 			
+			@SuppressWarnings("unchecked")
+			List<String> countryCodes = session.createQuery(" Select c.countryCode  from City c  group by countryCode " ).getResultList();
 			session.getTransaction().commit();
 			
+			for(String countryCode: countryCodes ) {
+				System.out.println("CountyCode  :"+countryCode);
+				
+			}
 			} finally {
 			factory.close();
 		}
