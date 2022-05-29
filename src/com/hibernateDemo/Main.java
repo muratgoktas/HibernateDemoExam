@@ -14,6 +14,7 @@ public class Main {
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(City.class)
 				.buildSessionFactory();
+		//Unit of work tasarým deseni.
 		Session session = factory.getCurrentSession();
 		
 		try {
@@ -34,16 +35,26 @@ public class Main {
 				System.out.println("CountyCode  :"+countryCode);
 				
 			}
-			
+			// INSERT
 			City city = new City();
 			city.setName("Musul");
 			city.setCountryCode("TUR");
 			city.setDistrict("Anadolu");
 			city.setPopulation(100000);
 			session.save(city);
+			System.out.println("Insert operation ok. ");
+			//READ and UPDATE
+			City city2 = session.get(City.class, 4100);
+			city2.setPopulation(123444);
+			session.save(city2);
+			System.out.println("Read and Update operations ok. ");
+			// DELETE
+			City city3= session.get(City.class, 4101);
+			session.delete(city3);
 			
+			System.out.println("Read and Delete operations ok. ");
 			session.getTransaction().commit();
-			System.out.println("Record Added.");
+			System.out.println("CRUD operations finihed.");
 			} finally {
 			factory.close();
 		}
